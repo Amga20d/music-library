@@ -85,7 +85,7 @@ const generateUid = function() {
 const addTrack = function(name, artist, album) {
   const newId = generateUid();
   library['tracks'][newId] = {
-    id : newId,
+    id: newId,
     name: name,
     artist: artist,
     album: album
@@ -97,8 +97,15 @@ const addTrack = function(name, artist, album) {
 
 // adds a playlist to the library
 const addPlaylist = function(name) {
-
+  const newId = generateUid();
+  library['playlists'][newId] = {
+    id: newId,
+    name: name,
+    tracks: []
+  };
+  console.log(library['playlists'])
 }
+// addPlaylist('Chill Music')
 
 
 // STRETCH:
