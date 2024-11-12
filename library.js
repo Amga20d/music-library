@@ -30,12 +30,12 @@ const library = {
 // prints a list of all playlists, in the form:
 // p01: Coding Music - 2 tracks
 // p02: Other Playlist - 1 tracks
-// const printPlaylists = function(obj) {
-//   for (const key in obj['playlists']) {
-//     const element = obj['playlists'][key];
-//     console.log(`${element['id']}: ${element['name']} - ${element['tracks'].length} tracks`)
-//   }
-// }
+const printPlaylists = function(obj) {
+  for (const key in obj['playlists']) {
+    const element = obj['playlists'][key];
+    console.log(`${element['id']}: ${element['name']} - ${element['tracks'].length} tracks`)
+  }
+}
 // printPlaylists(library);
 
 // prints a list of all tracks, using the following format:
@@ -48,21 +48,30 @@ const printTracks = function(obj) {
     console.log(`${track.id}: ${track.name} by ${track.artist} (${track.album})`);   
   }
 }
-printTracks(library);
+// printTracks(library);
 
 // prints a list of tracks for a given playlist, using the following format:
 // p01: Coding Music - 2 tracks
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 const printPlaylist = function(playlistId) {
-
+  const playlist = library['playlists'][playlistId];
+  console.log(`${playlist['id']}: ${playlist['name']} - ${playlist['tracks'].length} tracks`);
+  for (const key of playlist['tracks']) {
+    let track = library['tracks'][key]
+    console.log(`${track.id}: ${track.name} by ${track.artist} (${track.album})`)
+  }
 }
+// printPlaylist('p02');
 
 
 // adds an existing track to an existing playlist
 const addTrackToPlaylist = function(trackId, playlistId) {
-
+  const playlist = library['playlists'][playlistId];
+  playlist['tracks'].push(trackId);
+  console.log(library['playlists'][playlistId]);
 }
+// addTrackToPlaylist('t02', 'p02');
 
 
 // generates a unique id
@@ -74,9 +83,17 @@ const generateUid = function() {
 
 // adds a track to the library
 const addTrack = function(name, artist, album) {
+  const newId = generateUid();
+  library['tracks'][newId] = {
+    id : newId,
+    name: name,
+    artist: artist,
+    album: album
+  };
+  console.log(library['tracks']);
 
 }
-
+// addTrack('Ya layali', 'Ahmed', 'GamalRabanni');
 
 // adds a playlist to the library
 const addPlaylist = function(name) {
